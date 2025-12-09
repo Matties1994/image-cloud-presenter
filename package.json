@@ -1,0 +1,17 @@
+{
+    "name": "image-cloud-presenter-root",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "install-all": "npm install --prefix client && npm install --prefix server",
+        "build": "npm run build --prefix client",
+        "start": "node server/index.js",
+        "dev": "concurrently \"npm run dev --prefix client\" \"node server/index.js\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
