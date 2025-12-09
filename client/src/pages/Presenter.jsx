@@ -28,7 +28,14 @@ export default function Presenter() {
 
         // Determine QR URL
         if (isProduction) {
-            setQrUrl(`${window.location.origin}/upload`);
+            // Hardcode your short URL here if you have one, e.g. "bit.ly/foto123"
+            const SHORT_URL = "bit.ly/3KMZ3LU";
+
+            if (SHORT_URL) {
+                setQrUrl(`https://${SHORT_URL}`);
+            } else {
+                setQrUrl(`${window.location.origin}/upload`);
+            }
         } else {
             // In local dev, try to get local IP
             axios.get(`${SOCKET_URL}/api/ip`)
