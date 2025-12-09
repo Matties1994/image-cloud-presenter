@@ -25,22 +25,20 @@ const RoleSelection = () => {
         Kies je rol om te beginnen. Start de presentatie op het digibord of upload mee als deelnemer.
       </p>
 
-      <div className={`grid grid-cols-1 ${isLocalhost ? 'md:grid-cols-2' : ''} gap-8 w-full max-w-2xl justify-items-center`}>
-        {isLocalhost && (
-          <button
-            onClick={() => navigate('/presenter')}
-            className="group relative flex flex-col items-center p-8 bg-slate-800 rounded-2xl border border-slate-700 hover:border-blue-500 hover:bg-slate-750 transition-all duration-300 shadow-xl cursor-pointer w-full"
-          >
-            <div className="absolute -top-4 -right-4 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-bounce">
-              Voor het Digibord
-            </div>
-            <Monitor size={48} className="mb-4 text-blue-400 group-hover:scale-110 transition-transform" />
-            <h2 className="text-xl font-bold mb-2">Start Presentatie</h2>
-            <p className="text-sm text-slate-400 text-center">
-              Ik wil de QR-code tonen en de resultaten zien.
-            </p>
-          </button>
-        )}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl justify-items-center">
+        <button
+          onClick={() => navigate('/presenter')}
+          className="group relative flex flex-col items-center p-8 bg-slate-800 rounded-2xl border border-slate-700 hover:border-blue-500 hover:bg-slate-750 transition-all duration-300 shadow-xl cursor-pointer w-full"
+        >
+          <div className="absolute -top-4 -right-4 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-bounce">
+            Voor het Digibord
+          </div>
+          <Monitor size={48} className="mb-4 text-blue-400 group-hover:scale-110 transition-transform" />
+          <h2 className="text-xl font-bold mb-2">Start Presentatie</h2>
+          <p className="text-sm text-slate-400 text-center">
+            Ik wil de QR-code tonen en de resultaten zien.
+          </p>
+        </button>
 
         <button
           onClick={() => navigate('/upload')}
