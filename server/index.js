@@ -83,6 +83,25 @@ io.on('connection', (socket) => {
         io.emit('clear-images');
     });
 
+    socket.on('delete-image', (image) => {
+        const imageName = path.basename(image.url); // Extract filename safely
+        const imagePath = path.join(uploadDir, imageName);
+
+        // Check if file exists to avoid crashing or errors
+        if (fs.existsSync(imagePath)) {
+            fs.unlink(imagePath, (err) => {
+                if (err) {
+                    console.error('Error deleting file:', err);
+                    return;
+                }
+                console.log(`Deleted file: ${imageName}`);
+
+                // Use image.id to identify the image to remove on clients
+                io.emit('image-deleted', image.id);
+            });
+        }
+    });
+
     socket.on('disconnect', () => {
         console.log('User disconnected');
     });

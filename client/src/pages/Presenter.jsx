@@ -26,6 +26,10 @@ export default function Presenter() {
             setImages([]);
         });
 
+        socket.on('image-deleted', (deletedId) => {
+            setImages(prev => prev.filter(img => img.id !== deletedId));
+        });
+
         // Determine QR URL
         if (isProduction) {
             // Hardcode your short URL here if you have one, e.g. "bit.ly/foto123"
@@ -56,6 +60,13 @@ export default function Presenter() {
     const handleClear = () => {
         if (confirm('Weet je zeker dat je alle foto\'s wilt verwijderen?')) {
             socket.emit('clear-images');
+        }
+    };
+
+    const handleDeleteImage = (e, img) => {
+        e.stopPropagation(); // Prevent opening lightbox
+        if (confirm('Weet je zeker dat je deze foto wilt verwijderen?')) {
+            socket.emit('delete-image', img);
         }
     };
 
@@ -139,7 +150,14 @@ export default function Presenter() {
                                         loading="lazy"
                                     />
                                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                        <Maximize2 className="text-white drop-shadow-md transform scale-75 group-hover:scale-100 transition-transform duration-300" />
+                                        <Maximize2 className="text-white drop-shadow-md transform scale-75 group-hover:scale-100 transition-transform duration-300 pointer-events-none" />
+                                        <button
+                                            onClick={(e) => handleDeleteImage(e, img)}
+                                            className="absolute top-2 right-2 p-1.5 bg-red-500/80 hover:bg-red-500 text-white rounded-full transition-colors cursor-pointer"
+                                            title="Verwijder foto"
+                                        >
+                                            <X size={14} />
+                                        </button>
                                     </div>
                                 </div>
                             ))}
